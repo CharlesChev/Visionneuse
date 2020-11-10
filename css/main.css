@@ -1,0 +1,27 @@
+.container-fluid {
+	margin-top: 70px;
+}
+
+.map {
+	height: 800px;
+	margin: 5px;
+	border:solid 5px;
+}
+
+/* subfooter fixe */
+.margin-fix {
+	margin-top: 0px;
+}
+
+.newsletter {
+	display: flex;
+	flex-direction: row
+}
+
+.float-target-parent {
+	flex-grow:2;
+}
+
+.form-group {
+	margin-top: 20px;
+}

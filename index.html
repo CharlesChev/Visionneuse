@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset ="UTF-8">
+		<title>Visoneuse2.0</title>
+		<script type="text/javascript" src="js/modernizr.js"></script>
+		<script type="text/javascript" src="js/detectizr.js"></script>
+		<script type="text/javascript" src="js/script/picturefill.min.js" async></script>
+		<link rel="stylesheet" href="css/style-institut.css">
+		<link rel="stylesheet" href="css/ol.css">
+		<link rel="stylesheet" href="css/main.css">
+		<!--<link rel="stylesheet" href="css/bootstrap.css">-->
+	<body>
+        <header class="header header-principal" role="banner">
+            <div class="header-principal--left">
+                <div class="header-principal__logo">
+                    <a href="#" class="header-principal__logo-link" title="Accueil IGN Nom du site web">
+                        <img src="img/logo.png" alt="IGN" width="65" height="30">
+                        <span class="header-principal__name">Visioneuse</span>       
+					</a>
+                    </div>
+                    <div class="header-principal__nav">
+
+                        <nav class="navbar navbar--mobile navbar-light" role="navigation" aria-label="Menu principal mobile" tabindex="-1" id="menuPrincipalMobileTarget">
+                            <button class="navbar-toggler btn--plain btn--primary" type="button" data-target="#menuPrincipalMobile" aria-controls="menuPrincipalMobile" aria-expanded="false">
+                                <span class="navbar-toggler--icon icon-burger" aria-hidden="true"></span>
+                                <span class="navbar-toggler--text">Menu</span>
+                            </button>
+
+                            <div class="navbar-collapse" id="menuPrincipalMobile">
+                                <button class="navbar-toggler-close btn-close" type="button" data-target="#menuPrincipalMobile" aria-controls="menuPrincipalMobile" aria-expanded="false">
+                                    <span class="icon-close" aria-hidden="true"></span>
+                                    <span class="sr-only">Fermer le menu</span>
+                                </button>
+
+
+
+
+
+                                <ul class="navbar-nav navbar-nav--portails">
+                                    <li class="nav-item is-active">
+                                        <a class="nav-link" href="index.html">Accueil</a>
+                                    </li>
+                                </ul>
+
+
+
+                                <!--<ul class="navbar-nav navbar-nav--lang">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">EN</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link external-link" href="#" target="_blank" title="EN (Nouvelle fenêtre)">EN<span class="icon-external-link" aria-hidden="true"></span></a>
+                                    </li>
+                                </ul>-->
+
+
+                                <div class="navbar-nav">
+                                    <div class="nav-item">
+
+                                        <!-- the modal "access" is after the footer in the DOM -->
+                                        <button type="button" class="btn btn-icon--mobile" data-toggle="modal" data-target="#modalAccess">
+                                            <span class="icon-access" aria-hidden="true"></span>
+                                            <span>Paramètres d'accessibilité</span>
+                                        </button>
+
+                                    </div>
+
+                                    <div class="nav-item">
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="header-principal--right">
+                    <nav class="navbar--desktop" role="navigation" aria-label="Menu Portails">
+
+                        <ul class="navbar-nav navbar-nav--portails">
+                            <li class="nav-item is-active">
+                                <a class="nav-link" href="#">Accueil <span class="sr-only">(page courante)</span></a>
+                            </li>
+                        </ul>
+
+                    </nav>
+
+                    <!--
+                    <div class="header-principal__lang navbar--desktop">
+                        <ul class="navbar-nav navbar-nav--lang">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">EN</a>
+                            </li>
+                        
+                            <li class="nav-item">
+                                <a class="nav-link external-link" href="#" target="_blank" title="EN (Nouvelle fenêtre)">EN<span class="icon-external-link" aria-hidden="true"></span></a>
+                            </li>
+                        </ul>
+                    </div>
+					-->
+
+                    <!-- the modal "access" is after the footer in the DOM -->
+                    <button type="button" class="btn btn-icon--header d-none d-lg-block" data-toggle="modal" data-target="#modalAccess">
+                        <span class="icon-access" aria-hidden="true"></span>
+                        <span class="sr-only">Paramètres d'accessibilité</span>
+                    </button>
+
+
+                    <nav role="navigation" aria-label="Megamenu" id="megamenu">
+                        <button type="button" class="btn btn-icon--header" data-toggle="modal" data-target="#modalMegamenu">
+                            <span class="icon-megamenu" aria-hidden="true"></span>
+                            <span class="sr-only">Megamenu</span>
+                        </button>
+                    </nav>
+                </div>
+        </header>
+
+        <div class="container-fluid">
+			<div class = "row">
+				<div class="col-lg-6">
+					<div class="form-group">
+			            <label for="dropdownMap1">Sélectionnez une couche</label>
+			            <select class="form-control" id="dropdownMap1">
+			                <option>1</option>
+			                <option>2</option>
+			                <option>3</option>
+			                <option>4</option>
+			                <option>5</option>
+			            </select>
+        			</div>
+					<div id = "map1" class="map"></div>
+				</div>
+				<div class="col-lg-6">
+					<div class="form-group">
+			            <label for="dropdownMap2">Sélectionnez une couche</label>
+			            <select class="form-control" id="dropdownMap2">
+			                <option>1</option>
+			                <option>2</option>
+			                <option>3</option>
+			                <option>4</option>
+			                <option>5</option>
+			            </select>
+        			</div>
+					<div id = "map2" class='map'></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="subfooter bg-gradient-primary text-white">
+            <div class="container-content margin-fix">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h2 class="subfooter__title">La Newsletter</h2>
+                        <p class="subfooter__desc lead">Chaque trimestre, recevez par mail le meilleur de nos actualités !</p>
+                        
+                        <form class="newsletter" action="" method ='post'>
+                            <div class="float-target-parent">
+                                <label for="newsletters">Saisissez votre adresse</label>
+                                <input type="text" class="form-control" id="in_newsletter">
+                            </div>
+                            
+                            <div>
+                                <button type="submit" class="btn btn--plain btn--primary btn-active-effect subnew">S'inscrire</button>
+                            </div>
+                            
+                        </form>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <h2 class="subfooter__title">Suivez-nous</h2>
+                        <p class="subfooter__desc lead">L'IGN en temps réel sur les réseaux sociaux !</p>
+
+
+                        <div class="m-social">
+                            <ul class="m-social__list">
+                                <li class="m-social__item">
+                                    <a class="m-social__link" href="http://instagram.com" target="_blank"><span class="m-social__icon icon-instagram" aria-hidden="true"></span><p class="m-social__text"><span class="sr-only">instagram : </span><span class="m-social__nb">34k</span> followers</p></a>        
+                                </li>
+                                <li class="m-social__item">
+                                    <a class="m-social__link" href="http://twitter.com" target="_blank"><span class="m-social__icon icon-twitter" aria-hidden="true"></span><p class="m-social__text"><span class="sr-only">twitter : </span><span class="m-social__nb">34k</span> followers</p></a>        
+                                </li>
+                                <li class="m-social__item">
+                                    <a class="m-social__link" href="http://linkedin.com" target="_blank"><span class="m-social__icon icon-linkedin" aria-hidden="true"></span><p class="m-social__text"><span class="sr-only">linkedin : </span><span class="m-social__nb">34k</span> followers</p></a>        
+                                </li>
+                                <li class="m-social__item">
+                                    <a class="m-social__link" href="http://facebook.com" target="_blank"><span class="m-social__icon icon-facebook" aria-hidden="true"></span><p class="m-social__text"><span class="sr-only">facebook : </span><span class="m-social__nb">34k</span> followers</p></a>        
+                                </li>
+                            </ul>
+                        </div>            
+                    </div>
+                </div>
+            </div>
+        </div>    
+		<div class="footer">
+            <div class="container-content">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3">
+                        <h2 class="footer-title">Où nous trouver</h2>
+
+                        <p class="footer-address">Institut National de l’Information Géographique et Forestière,<br>
+                            73 avenue de Paris,<br>
+                        94165 SAINT-MANDÉ CEDEX</p>
+
+                        <ul class="footer-list">
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Nous contacter</a>
+                            </li>    
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Toutes nos adresses</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h2 class="footer-title">Les portails</h2>
+
+                        <ul class="footer-list">
+                            <li class="footer-list-item footer-list-item--hasIcon">
+                                <a href="#">
+                                <span class="footer-list-item__icon icon-user" aria-hidden="true"></span>Portail Particulier</a>
+                            </li>    
+                            <li class="footer-list-item footer-list-item--hasIcon">
+                                <a href="#">
+                                <span class="footer-list-item__icon icon-pro" aria-hidden="true"></span>Portail Professionnel long item Lorem ipsum dolor sit amet consectetur adipisicing elit</a>
+                            </li>    
+                            <li class="footer-list-item footer-list-item--hasIcon">
+                                <a href="#">
+                                <span class="footer-list-item__icon icon-map" aria-hidden="true"></span>Portail Carto</a>
+                            </li>    
+                            <li class="footer-list-item footer-list-item--hasIcon">
+                                <a href="#" target="_blank">
+                                <span class="footer-list-item__icon icon-ecosystem" aria-hidden="true"></span>Portail IGN.fr</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h2 class="footer-title">Les accès rapides</h2>
+                        <ul class="footer-list">
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Portail Particulier</a>
+                            </li>    
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Portail Particulier</a>
+                            </li>    
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Portail Particulier</a>
+                            </li>    
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Portail Particulier</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <h2 class="footer-title">Les infos complémentaires</h2>
+
+                        <ul class="footer-list">
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Portail Particulier</a>
+                            </li>    
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Portail Particulier</a>
+                            </li>   
+                            <li class="footer-list-item">
+                                <a href="#">
+                                Portail Particulier</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+				<footer class="footer-contentinfo" role="contentinfo">
+                    <p class="footer-copyright">&copy; IGN - 2020</p>
+
+                    <ul class="footer-list footer-list--inline">
+                        <li class="footer-list-item">
+                            <a href="#">
+                            Mentions légales</a>
+                        </li>    
+                        <li class="footer-list-item">
+                            <a href="#">
+                            Données personnelles</a>
+                        </li>    
+                        <li class="footer-list-item">
+                            <a href="#" target="_blank">
+                            Blank</a>
+                        </li>
+                    </ul>
+                </footer>
+            </div>
+        </div>
+        <div class="footer-logo">
+            <div class="container-content">
+                <img src="img/logo-republique-francaise.svg" alt="République Française - Liberté Egalité Fraternité">
+            </div>
+        </div>
+	</body>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="js/vendor.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/ol.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	
+	<!--<script type="text/javascript" src="js/bootstrap.js"></script>-->
+</html>
