@@ -1,8 +1,40 @@
 /*Données pour instanciation des sources et layers
-Ajouter nom,url, nom de la couche et type de couche (OSM ou WMS)*/
+Ajouter nom,url, nom de la couche et type de couche (OSM ou WMS)
++ matrixset,format,style, origin, resolutions et matrixIds si couche WMTS*/
 var data = [
-	{"name":"Osm2plan",'url':"https://geoserver.maps.science/geoserver/OSM/wms?request=GetMap&service=WMS&version1.1.1", "layer":"plan_osm_uk","type":"WMS"},
-	{"name":"Osm",'url':"", "layer":"","type":"OSM"}
+	{	
+		"type":"WMS",
+		"name":"Osm2plan",
+		"url":"https://geoserver.maps.science/geoserver/OSM/wms?request=GetMap&service=WMS&version1.1.1", 
+		"layer":"plan_osm_uk",
+	},
+	{	
+		"type":"OSM",
+		"name":"Osm",
+		'url':"", 
+		"layer":""
+	},
+	{	
+		"type":"WMTS",
+		"name": "IgnPlanV2", 
+		"url":'https://wxs.ign.fr/choisirgeoportail/geoportail/wmts', 
+		"layer":"GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
+		"matrixSet":"PM",
+		"format":"image/png",
+		"projection":"EPSG:3857",
+		"style":"normal",
+		"origin":[-20037508, 20037508],
+		"resolutions":[
+			156543.03392804103,78271.5169640205,39135.75848201024,
+			19567.879241005125,9783.939620502562,4891.969810251281,
+			2445.9849051256406,1222.9924525628203,611.4962262814101,
+    		305.74811314070485,152.87405657035254,76.43702828517625,
+    		38.218514142588134,19.109257071294063,9.554628535647034,
+    		4.777314267823517,2.3886571339117584,1.1943285669558792,
+    		0.5971642834779396,0.29858214173896974,0.14929107086948493,
+    		0.07464553543474241],
+    	"matrixIds":["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"]
+	}
 ];
 
 /*ajout des noms dans les menus déroulant */
@@ -21,13 +53,28 @@ for (let i in data){
 	if (data[i]["type"] == "OSM"){
 		let osm = new ol.source.OSM();
 		sources[data[i]["name"]]=(osm);
-	}if(data[i]["type"] == "WMS"){
+	}else if(data[i]["type"] == "WMS"){
 		let wms = new ol.source.TileWMS({
 			url:data[i]["url"],
 			params:{"LAYERS":data[i]["layer"]}
 		});
 		sources[data[i]["name"]]=(wms);
-	};
+	}else if (data[i]["type"] == "WMTS"){
+		let wmts = new ol.source.WMTS({
+            url: data[i]["url"],
+            layer: data[i]["layer"],
+            matrixSet: data[i]["matrixSet"],
+            format: data[i]["format"],
+            projection:data[i]["projection"],
+            style: data[i]["style"],
+            tileGrid : new ol.tilegrid.WMTS({
+                origin: data[i]["origin"], 
+                resolutions: data[i]["resolutions"], 
+                matrixIds: data[i]["matrixIds"]
+            })
+    	});
+    	sources[data[i]["name"]]=(wmts);
+    }
 };
 
 for (var id in sources){
@@ -62,11 +109,13 @@ let map2 = new ol.Map({
 });
 
 /*événements modification cartes*/
+let collec = "";
 let selected1 = "";
 $('#dropdownMap1').on("change",function(){
 	selected1 = $('#dropdownMap1 option:selected').text();
 	if (selected1 != ""){
-		newLayer1 = layers[selected1];
+		collec = map1.getLayers();
+		currentLayer1 = collec["array_"][0];
 		map1.removeLayer(currentLayer1);
 		map1.addLayer(layers[selected1]);
 	}
@@ -75,8 +124,9 @@ $('#dropdownMap1').on("change",function(){
 let selected2 = "";
 $('#dropdownMap2').on("change",function(){
 	selected2 = $('#dropdownMap2 option:selected').text();
-	if (selected1 != ""){
-		newLayer2 = layers[selected2];
+	if (selected2 != ""){
+		collec = map2.getLayers();
+		currentLayer2 = collec["array_"][0];
 		map2.removeLayer(currentLayer2);
 		map2.addLayer(layers[selected2]);
 	}
@@ -86,18 +136,3 @@ $('#dropdownMap2').on("change",function(){
 
 
 
-/*selection de la carte à afficher*/
-
-
-/*let ignPlan = new ol.source.WMTS({
-	url:"https://wxs.ign.fr/pratique/geoportail/wmts",
-	layer:"GEOGRAPHICALGRIDSYSTEMS.MAPS",
-	matrixSet:"PM",
-	format:"image/jpeg",
-	style:"normal",
-    attribution: "&copy; IGN"
-});*/
-
-/*let ignPlanLayer = new ol.layer.Tile({
-	source:ignPlan
-});*/
