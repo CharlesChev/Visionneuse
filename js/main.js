@@ -1,6 +1,8 @@
 /*Données pour instanciation des sources et layers
 Ajouter nom,url, nom de la couche et type de couche (OSM ou WMS)
 + matrixset,format,style, origin, resolutions et matrixIds si couche WMTS*/
+
+/*https://geoserver.maps.science/geoserver/OSM/wms?request=GetMap&service=WMS&version1.1.1"*/
 var data = [
 	{	
 		"type":"WMS",
@@ -37,11 +39,21 @@ var data = [
 	}
 ];
 
-/*ajout des noms dans les menus déroulant */
+/*Layers sélectionnées au chargement*/
+const defaultLayerName1 = data[0]["name"];
+const defaultLayerName2 = data[2]["name"];
+
+/*ajout des noms dans les menus déroulant avec les deux première valeur par default*/
 jQuery(document).ready(function(){
-	for (var i in data){
-		$("#dropdownMap1").append("<option>"+data[i]["name"]+"</option>");
-		$("#dropdownMap2").append("<option>"+data[i]["name"]+"</option>");
+	$("#dropdownMap1").append("<option>"+defaultLayerName1+"</option>");
+	$("#dropdownMap2").append("<option>"+defaultLayerName2+"</option>");
+	for (var i in data){ 
+		if(data[i]["name"] != defaultLayerName1 && data[i]["name"] != defaultLayerName2){
+			$("#dropdownMap1").append("<option>"+data[i]["name"]+"</option>");
+		}
+		if (data[i]["name"] != defaultLayerName2 && data[i]["name"] != defaultLayerName1){
+			$("#dropdownMap2").append("<option>"+data[i]["name"]+"</option>");
+		}
 	}
 });
 
@@ -86,14 +98,14 @@ for (var id in sources){
 
 /*instanciation de la vue*/
 let view = new ol.View({
-	projection:'EPSG:4326',
-	center:[6.032179,47.280694],
+	projection:'EPSG:3857',
+	center:[670594.612659,5980980.58694],
 	zoom:8
 	});
 
 /*carte par default*/
-let currentLayer1 = layers[data[0]["name"]];
-let currentLayer2 = layers[data[1]["name"]];
+let currentLayer1 = layers[defaultLayerName1];
+let currentLayer2 = layers[defaultLayerName2];
 
 /*instaciation des cartes*/
 let map1 = new ol.Map({
@@ -110,25 +122,51 @@ let map2 = new ol.Map({
 
 /*événements modification cartes*/
 let collec = "";
-let selected1 = "";
+let selected1 = defaultLayerName1;
 $('#dropdownMap1').on("change",function(){
 	selected1 = $('#dropdownMap1 option:selected').text();
-	if (selected1 != ""){
+	if (layers[selected1]["ol_uid"]!= layers[selected2]["ol_uid"]){
 		collec = map1.getLayers();
 		currentLayer1 = collec["array_"][0];
 		map1.removeLayer(currentLayer1);
 		map1.addLayer(layers[selected1]);
+		/*modification des menus déroulant en fonction des nouvelles map selectionnées*/
+		$("#dropdownMap1").empty();
+		$("#dropdownMap2").empty();
+		$("#dropdownMap1").append("<option>"+selected1+"</option>");
+		$("#dropdownMap2").append("<option>"+selected2+"</option>");
+		for (var i in data){ 
+			if(data[i]["name"] != selected1 && data[i]["name"] != selected2){
+				$("#dropdownMap1").append("<option>"+data[i]["name"]+"</option>");
+			}
+			if (data[i]["name"] != selected2 && data[i]["name"] != selected1){
+				$("#dropdownMap2").append("<option>"+data[i]["name"]+"</option>");
+			}
+		}
 	}
 });	
 
-let selected2 = "";
+let selected2 = defaultLayerName2;
 $('#dropdownMap2').on("change",function(){
 	selected2 = $('#dropdownMap2 option:selected').text();
-	if (selected2 != ""){
+	if (layers[selected2]["ol_uid"]!= layers[selected1]["ol_uid"]){
 		collec = map2.getLayers();
 		currentLayer2 = collec["array_"][0];
 		map2.removeLayer(currentLayer2);
 		map2.addLayer(layers[selected2]);
+		/*modification des menus déroulant en fonction des nouvelles map selectionnées*/
+		$("#dropdownMap1").empty();
+		$("#dropdownMap2").empty();
+		$("#dropdownMap1").append("<option>"+selected1+"</option>");
+		$("#dropdownMap2").append("<option>"+selected2+"</option>");
+		for (var i in data){ 
+			if(data[i]["name"] != selected1 && data[i]["name"] != selected2){
+				$("#dropdownMap1").append("<option>"+data[i]["name"]+"</option>");
+			}
+			if (data[i]["name"] != selected2 && data[i]["name"] != selected1){
+				$("#dropdownMap2").append("<option>"+data[i]["name"]+"</option>");
+			}
+		}
 	}
 });	
 
