@@ -100,7 +100,9 @@ for (var id in sources){
 let view = new ol.View({
 	projection:'EPSG:3857',
 	center:[76895.650455,6007186.052932],
-	zoom:15
+	zoom:15,
+	minZoom:13,
+	maxZoom:18
 	});
 
 /*carte par default*/
