@@ -6,7 +6,7 @@ const data = [
 			layer:"GEOGRAPHICALGRIDSYSTEMS.PLANIGNV2",
 			matrixSet:"PM",
 			format:"image/png",
-		    projection:"EPSG:3857",
+		        projection:"EPSG:3857",
 			style:"normal",
 			origin:[-20037508, 20037508],
 			resolutions:[
